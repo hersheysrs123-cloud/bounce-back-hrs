@@ -1,7 +1,9 @@
 [gd_scene format=4 uid="uid://bao47grv60ndo"]
 
+[ext_resource type="Texture2D" uid="uid://jtmhn4h7lqfo" path="res://mesh-gradient (1).png" id="1_0hol4"]
 [ext_resource type="Texture2D" uid="uid://7teq4mby2p0t" path="res://image.png" id="1_wtcfe"]
 [ext_resource type="Texture2D" uid="uid://c8a6w0r8nwjc4" path="res://balls cubed.png" id="2_0e48y"]
+[ext_resource type="Script" uid="uid://btcddfxoahks8" path="res://ball.gd" id="3_q6r6c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_reolk"]
 size = Vector2(66, 679)
@@ -22,6 +24,13 @@ radius = 40.0
 height = 82.0
 
 [node name="Node2D" type="Node2D" unique_id=977329759]
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1781263646]
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=104309508]
+position = Vector2(578, 327.50003)
+scale = Vector2(0.574, 0.32849997)
+texture = ExtResource("1_0hol4")
 
 [node name="wall right" type="StaticBody2D" parent="." unique_id=883023932]
 
@@ -50,11 +59,13 @@ position = Vector2(597, 670)
 shape = SubResource("RectangleShape2D_ea0i7")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=349359983]
+visible = false
 scale = Vector2(0.3, 0.3)
 tile_map_data = PackedByteArray("AAAOAA4AAwABAAEAAAAsAA4AAAAAAAAAAABKAA4AAAAAAAAAAABKACwAAAAAAAAAAAAsACwAAAAAAAAAAAAOACwAAAAAAAAAAAArAA4AAwABAAEAAABIAA4AAwABAAEAAABkAA4AAwABAAEAAACBAA4AAwABAAEAAACeAA4AAwABAAEAAAC6AA4AAwABAAEAAADWAA4AAwABAAEAAADyAA4AAwABAAEAAAAOACsAAwABAAEAAAAqACsAAwABAAEAAABGACsAAwABAAEAAABiACsAAwABAAEAAAB+ACsAAwABAAEAAACaACsAAwABAAEAAAC2ACsAAwABAAEAAADSACsAAwABAAEAAADuACsAAwABAAEAAAAOAEgAAwABAAEAAAAqAEgAAwABAAEAAABGAEgAAwABAAEAAABiAEgAAwABAAEAAAB+AEcAAwABAAEAAACaAEcAAwABAAEAAAB/AEgAAwABAAEAAACbAEgAAwABAAEAAAC3AEgAAwABAAEAAADTAEgAAwABAAEAAADvAEgAAwABAAEAAAAOAGUAAwABAAEAAAAqAGUAAwABAAEAAABGAGUAAwABAAEAAABiAGUAAwABAAEAAAB+AGUAAwABAAEAAACaAGUAAwABAAEAAAC2AGUAAwABAAEAAADSAGUAAwABAAEAAADuAGUAAwABAAEAAAAOAIIAAwABAAEAAAAqAIIAAwABAAEAAABGAIIAAwABAAEAAABiAIIAAwABAAEAAAB+AIIAAwABAAEAAACaAIIAAwABAAEAAAC2AIIAAwABAAEAAADSAIIAAwABAAEAAADuAIIAAwABAAEAAAA=")
 tile_set = SubResource("TileSet_ea0i7")
 
 [node name="Ball" type="CharacterBody2D" parent="." unique_id=40377189]
+script = ExtResource("3_q6r6c")
 
 [node name="Sprite2D" type="Sprite2D" parent="Ball" unique_id=1530611755]
 position = Vector2(473, 421)
