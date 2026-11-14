@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bvml2cubwrh88"
+path="res://.godot/imported/slime shooting.wav-4ff45966586e414832557aa655ccd8e3.sample"
+
+[deps]
+
+source_file="res://slime shooting.wav"
+dest_files=["res://.godot/imported/slime shooting.wav-4ff45966586e414832557aa655ccd8e3.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

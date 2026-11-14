@@ -1,11 +1,20 @@
-extends CollisionShape2D
+extends RigidBody2D
+var needs_reset = false
 
-
-# Called when the node enters the scene tree for the first time.
+@export var speed: float = 400.0
+var start_position: Vector2
 func _ready() -> void:
-	pass # Replace with function body.
+	linear_velocity = Vector2(1,1).normalized()*speed
+	start_position = global_position
 
+func reposition():
+	needs_reset = true
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if needs_reset:
+		needs_reset = false
+		state.transform.origin = start_position  
+		state.linear_velocity = Vector2(1, 1).normalized()*speed
+		state.angular_velocity = 0
+		return 
+		
