@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b0fl5lun8tstd"]
+
+[ext_resource type="Script" uid="uid://btcddfxoahks8" path="res://Ball.gd" id="1_41u45"]
+[ext_resource type="Texture2D" uid="uid://c8a6w0r8nwjc4" path="res://balls cubed.png" id="2_ktgx5"]
+[ext_resource type="AudioStream" uid="uid://bd7wfj01yehki" path="res://bounce-sfx.wav" id="3_ktgx5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_reolk"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ea0i7"]
+radius = 17.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ktgx5"]
+random_pitch = 1.0905077
+streams_count = 1
+stream_0/stream = ExtResource("3_ktgx5")
+
+[node name="ball" type="RigidBody2D" unique_id=1199797558 groups=["balls"]]
+collision_layer = 4
+collision_mask = 2
+mass = 0.001
+physics_material_override = SubResource("PhysicsMaterial_reolk")
+gravity_scale = 0.0
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 2
+linear_damp_mode = 1
+script = ExtResource("1_41u45")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1895781419]
+scale = Vector2(0.102, 0.1)
+texture = ExtResource("2_ktgx5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1270346566]
+shape = SubResource("CircleShape2D_ea0i7")
+
+[node name="bounce" type="AudioStreamPlayer2D" parent="." unique_id=668821186]
+stream = SubResource("AudioStreamRandomizer_ktgx5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

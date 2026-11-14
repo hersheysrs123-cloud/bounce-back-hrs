@@ -1,9 +1,8 @@
 extends Node2D
-
+const BALL = preload("res://ball.tscn")
 
 @onready var hide1: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hide2: AnimatedSprite2D = $AnimatedSprite2D3
-@onready var ball: RigidBody2D = $ball
 var health = 3 
 var list_of_bg = ["blue", "red", "green", "yellow"]
 const BACKGROUNDS = {
@@ -17,7 +16,6 @@ const BACKGROUNDS = {
 
 var ball_hit_side = ""
 @onready var background: Sprite2D = $background
-
 
 func _ready() -> void:
 	background.z_index = -1          
@@ -40,15 +38,25 @@ func _on_timer_timeout() -> void:
 
 func reset():
 	set_background("default")
-	ball.reposition()
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.name == "ball":
+	if body.is_in_group("balls"):
 		health -= 1
+		body.queue_free()
 		reset()
 func _process(delta: float) -> void:
 	if health == 2: 
-		hide1.hide_it()
+		hide1.hide()
 	if health == 1:
-		hide2.hide_it()
+		hide2.hide()
 		
+func _input(event):
+	if event.is_action_pressed(&"click"):
+		var direction = (get_global_mouse_position() - $Player.global_position).normalized()
+		var new_ball = BALL.instantiate()
+		new_ball.player = $Player
+		new_ball.direction = direction
+		new_ball.needs_reset = true
+		new_ball.global_position = $Player.global_position + direction * 100
+		add_child(new_ball)
+		$shoot.play()
