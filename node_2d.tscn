@@ -1,9 +1,7 @@
-[gd_scene format=4 uid="uid://bao47grv60ndo"]
+[gd_scene format=3 uid="uid://bao47grv60ndo"]
 
-[ext_resource type="Texture2D" uid="uid://jtmhn4h7lqfo" path="res://mesh-gradient (1).png" id="1_0hol4"]
-[ext_resource type="Texture2D" uid="uid://7teq4mby2p0t" path="res://image.png" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://m77l1pfk311s" path="res://node_2d.gd" id="1_epypp"]
 [ext_resource type="Texture2D" uid="uid://c8a6w0r8nwjc4" path="res://balls cubed.png" id="2_0e48y"]
-[ext_resource type="Script" uid="uid://btcddfxoahks8" path="res://ball.gd" id="3_q6r6c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_reolk"]
 size = Vector2(66, 679)
@@ -11,26 +9,12 @@ size = Vector2(66, 679)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ea0i7"]
 size = Vector2(1260, 44)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtcfe"]
-texture = ExtResource("1_wtcfe")
-1:1/size_in_atlas = Vector2i(29, 29)
-1:1/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_ea0i7"]
-sources/3 = SubResource("TileSetAtlasSource_wtcfe")
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_reolk"]
 radius = 40.0
 height = 82.0
 
 [node name="Node2D" type="Node2D" unique_id=977329759]
-
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1781263646]
-
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=104309508]
-position = Vector2(578, 327.50003)
-scale = Vector2(0.574, 0.32849997)
-texture = ExtResource("1_0hol4")
+script = ExtResource("1_epypp")
 
 [node name="wall right" type="StaticBody2D" parent="." unique_id=883023932]
 
@@ -58,14 +42,7 @@ shape = SubResource("RectangleShape2D_ea0i7")
 position = Vector2(597, 670)
 shape = SubResource("RectangleShape2D_ea0i7")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=349359983]
-visible = false
-scale = Vector2(0.3, 0.3)
-tile_map_data = PackedByteArray("AAAOAA4AAwABAAEAAAAsAA4AAAAAAAAAAABKAA4AAAAAAAAAAABKACwAAAAAAAAAAAAsACwAAAAAAAAAAAAOACwAAAAAAAAAAAArAA4AAwABAAEAAABIAA4AAwABAAEAAABkAA4AAwABAAEAAACBAA4AAwABAAEAAACeAA4AAwABAAEAAAC6AA4AAwABAAEAAADWAA4AAwABAAEAAADyAA4AAwABAAEAAAAOACsAAwABAAEAAAAqACsAAwABAAEAAABGACsAAwABAAEAAABiACsAAwABAAEAAAB+ACsAAwABAAEAAACaACsAAwABAAEAAAC2ACsAAwABAAEAAADSACsAAwABAAEAAADuACsAAwABAAEAAAAOAEgAAwABAAEAAAAqAEgAAwABAAEAAABGAEgAAwABAAEAAABiAEgAAwABAAEAAAB+AEcAAwABAAEAAACaAEcAAwABAAEAAAB/AEgAAwABAAEAAACbAEgAAwABAAEAAAC3AEgAAwABAAEAAADTAEgAAwABAAEAAADvAEgAAwABAAEAAAAOAGUAAwABAAEAAAAqAGUAAwABAAEAAABGAGUAAwABAAEAAABiAGUAAwABAAEAAAB+AGUAAwABAAEAAACaAGUAAwABAAEAAAC2AGUAAwABAAEAAADSAGUAAwABAAEAAADuAGUAAwABAAEAAAAOAIIAAwABAAEAAAAqAIIAAwABAAEAAABGAIIAAwABAAEAAABiAIIAAwABAAEAAAB+AIIAAwABAAEAAACaAIIAAwABAAEAAAC2AIIAAwABAAEAAADSAIIAAwABAAEAAADuAIIAAwABAAEAAAA=")
-tile_set = SubResource("TileSet_ea0i7")
-
 [node name="Ball" type="CharacterBody2D" parent="." unique_id=40377189]
-script = ExtResource("3_q6r6c")
 
 [node name="Sprite2D" type="Sprite2D" parent="Ball" unique_id=1530611755]
 position = Vector2(473, 421)
@@ -75,3 +52,7 @@ texture = ExtResource("2_0e48y")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ball" unique_id=1646540207]
 position = Vector2(472, 421)
 shape = SubResource("CapsuleShape2D_reolk")
+
+[node name="background" type="Sprite2D" parent="." unique_id=1593180464]
+scale = Vector2(0.6, 1)
+centered = false
