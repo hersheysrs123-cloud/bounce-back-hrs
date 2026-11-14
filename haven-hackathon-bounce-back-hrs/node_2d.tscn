@@ -1,30 +1,66 @@
-[gd_scene format=3 uid="uid://b08baqs6o1444"]
+[gd_scene format=4 uid="uid://bao47grv60ndo"]
 
-[ext_resource type="Texture2D" uid="uid://b8gsuogj1ba8" path="res://icon.svg" id="1_wtcfe"]
-[ext_resource type="Script" uid="uid://pioo2plwvmmu" path="res://character_body_2d.gd" id="2_0e48y"]
+[ext_resource type="Texture2D" uid="uid://7teq4mby2p0t" path="res://image.png" id="1_wtcfe"]
+[ext_resource type="Texture2D" uid="uid://c8a6w0r8nwjc4" path="res://balls cubed.png" id="2_0e48y"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ri6b3"]
-size = Vector2(1201, 144.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_reolk"]
+size = Vector2(66, 679)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_reolk"]
-radius = 155.63097
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ea0i7"]
+size = Vector2(1260, 44)
 
-[node name="Node2D" type="Node2D" unique_id=1433898568]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2023310741]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1400251352]
-position = Vector2(600, 572)
-shape = SubResource("RectangleShape2D_ri6b3")
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1957160926]
-script = ExtResource("2_0e48y")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1175835760]
-position = Vector2(692, 317)
-shape = SubResource("CircleShape2D_reolk")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=149108734]
-position = Vector2(686.5, 323)
-scale = Vector2(1.8828123, 1.59375)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtcfe"]
 texture = ExtResource("1_wtcfe")
+1:1/size_in_atlas = Vector2i(29, 29)
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ea0i7"]
+sources/3 = SubResource("TileSetAtlasSource_wtcfe")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_reolk"]
+radius = 40.0
+height = 82.0
+
+[node name="Node2D" type="Node2D" unique_id=977329759]
+
+[node name="wall right" type="StaticBody2D" parent="." unique_id=883023932]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall right" unique_id=1287742022]
+position = Vector2(-34, 325)
+shape = SubResource("RectangleShape2D_reolk")
+
+[node name="Sprite2D" type="Sprite2D" parent="wall right" unique_id=1837137202]
+
+[node name="wall left" type="StaticBody2D" parent="." unique_id=597976511]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall left" unique_id=1360971901]
+position = Vector2(1185, 321)
+shape = SubResource("RectangleShape2D_reolk")
+
+[node name="wall top" type="StaticBody2D" parent="." unique_id=545747087]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall top" unique_id=1907401263]
+position = Vector2(600, -22)
+shape = SubResource("RectangleShape2D_ea0i7")
+
+[node name="wall bottom" type="StaticBody2D" parent="." unique_id=241575498]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall bottom" unique_id=852475210]
+position = Vector2(597, 670)
+shape = SubResource("RectangleShape2D_ea0i7")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=349359983]
+scale = Vector2(0.3, 0.3)
+tile_map_data = PackedByteArray("AAAOAA4AAwABAAEAAAAsAA4AAAAAAAAAAABKAA4AAAAAAAAAAABKACwAAAAAAAAAAAAsACwAAAAAAAAAAAAOACwAAAAAAAAAAAArAA4AAwABAAEAAABIAA4AAwABAAEAAABkAA4AAwABAAEAAACBAA4AAwABAAEAAACeAA4AAwABAAEAAAC6AA4AAwABAAEAAADWAA4AAwABAAEAAADyAA4AAwABAAEAAAAOACsAAwABAAEAAAAqACsAAwABAAEAAABGACsAAwABAAEAAABiACsAAwABAAEAAAB+ACsAAwABAAEAAACaACsAAwABAAEAAAC2ACsAAwABAAEAAADSACsAAwABAAEAAADuACsAAwABAAEAAAAOAEgAAwABAAEAAAAqAEgAAwABAAEAAABGAEgAAwABAAEAAABiAEgAAwABAAEAAAB+AEcAAwABAAEAAACaAEcAAwABAAEAAAB/AEgAAwABAAEAAACbAEgAAwABAAEAAAC3AEgAAwABAAEAAADTAEgAAwABAAEAAADvAEgAAwABAAEAAAAOAGUAAwABAAEAAAAqAGUAAwABAAEAAABGAGUAAwABAAEAAABiAGUAAwABAAEAAAB+AGUAAwABAAEAAACaAGUAAwABAAEAAAC2AGUAAwABAAEAAADSAGUAAwABAAEAAADuAGUAAwABAAEAAAAOAIIAAwABAAEAAAAqAIIAAwABAAEAAABGAIIAAwABAAEAAABiAIIAAwABAAEAAAB+AIIAAwABAAEAAACaAIIAAwABAAEAAAC2AIIAAwABAAEAAADSAIIAAwABAAEAAADuAIIAAwABAAEAAAA=")
+tile_set = SubResource("TileSet_ea0i7")
+
+[node name="Ball" type="CharacterBody2D" parent="." unique_id=40377189]
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball" unique_id=1530611755]
+position = Vector2(473, 421)
+scale = Vector2(0.23624857, 0.2376033)
+texture = ExtResource("2_0e48y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball" unique_id=1646540207]
+position = Vector2(472, 421)
+shape = SubResource("CapsuleShape2D_reolk")
