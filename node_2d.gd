@@ -54,6 +54,8 @@ func _process(delta: float) -> void:
 		hide1.hide()
 	if health == 1:
 		hide2.hide()
+#	if health == 0:
+		
 		
 func _input(event):
 	if event.is_action_pressed(&"click"):
@@ -71,7 +73,9 @@ func _on_hole_body_entered(body: Node2D) -> void:
 	if body.is_in_group("balls"):
 		goals += 1
 		score.text = "Score: " + str(goals)
+		$goal.play()
 		hole.spawn_choose()
+		hole.inc_difficulty()
 		body.queue_free()
 		print(goals)
 
