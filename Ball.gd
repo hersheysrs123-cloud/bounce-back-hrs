@@ -17,9 +17,11 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		state.linear_velocity = direction.normalized() * speed
 		state.angular_velocity = 0
 		return 
+		
 	if state.linear_velocity.length() > 0:
 		state.linear_velocity = state.linear_velocity.normalized() * speed
-		
+	
+	
 
 
 func _on_body_entered(body: Node) -> void:

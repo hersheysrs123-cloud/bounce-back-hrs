@@ -8,10 +8,11 @@
 [ext_resource type="Script" uid="uid://d0ehm5mpmn2c" path="res://animated_sprite_2d_2.gd" id="7_rj586"]
 [ext_resource type="Script" uid="uid://bfxfe4i7dakw7" path="res://animated_sprite_2d_3.gd" id="8_4d7sh"]
 [ext_resource type="AudioStream" uid="uid://cv3wct7pooss1" path="res://hit-sfx.wav" id="8_rj586"]
-[ext_resource type="Texture2D" uid="uid://cfmu6nhul8rgb" path="res://hole.png" id="9_4d7sh"]
 [ext_resource type="Script" uid="uid://cvbwnuyuafm8p" path="res://hole.gd" id="9_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://c2f0yevilqrgm" path="res://crosshairs/Circle/Circle_Crosshair6.png" id="9_x0ka3"]
 [ext_resource type="FontFile" uid="uid://lqvkce7picac" path="res://BOUNCY GUM.ttf" id="11_hqns4"]
 [ext_resource type="AudioStream" uid="uid://cydgtctarlvr1" path="res://goal_final.wav" id="12_x0ka3"]
+[ext_resource type="Script" uid="uid://b8qca3mwnsxf1" path="res://animated_sprite_2d.gd" id="13_0h7mo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_reolk"]
 size = Vector2(66, 783.5)
@@ -23,7 +24,7 @@ size = Vector2(1282, 53)
 size = Vector2(823.99976, 353.99966)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pkhr"]
-bg_color = Color(0.4311368, 0.6145804, 0.82415205, 0.3137255)
+bg_color = Color(1, 1, 1, 0.27450982)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -63,6 +64,9 @@ height = 92.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3ioc"]
 size = Vector2(57, 101)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hjvny"]
+radius = 32.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_d21ai"]
 atlas = ExtResource("6_kdubu")
 region = Rect2(0, 0, 32, 32)
@@ -99,8 +103,20 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hjvny"]
-radius = 32.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_reolk"]
+radius = 41.04875
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ea0i7"]
+radius = 39.051247
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ri6b3"]
+size = Vector2(81, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x0ka3"]
+size = Vector2(71, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0h7mo"]
+size = Vector2(75, 48)
 
 [node name="Node2D" type="Node2D" unique_id=977329759]
 script = ExtResource("1_epypp")
@@ -112,7 +128,12 @@ collision_layer = 3
 position = Vector2(-32, 283)
 shape = SubResource("RectangleShape2D_reolk")
 
-[node name="Sprite2D" type="Sprite2D" parent="wall right 1" unique_id=1837137202]
+[node name="ColorRect" type="ColorRect" parent="wall right 1" unique_id=1067588591]
+offset_left = 1148.0
+offset_top = -120.0
+offset_right = 1233.0
+offset_bottom = 773.0
+color = Color(0.68215144, 0.029433975, 0.40867049, 1)
 
 [node name="wall left 2" type="StaticBody2D" parent="." unique_id=597976511]
 collision_layer = 3
@@ -121,12 +142,26 @@ collision_layer = 3
 position = Vector2(1185, 302)
 shape = SubResource("RectangleShape2D_reolk")
 
+[node name="ColorRect" type="ColorRect" parent="wall left 2" unique_id=995043957]
+offset_left = -83.0
+offset_top = -133.0
+offset_right = 2.0
+offset_bottom = 921.0
+color = Color(0.68215144, 0.029433975, 0.40867049, 1)
+
 [node name="wall top 3" type="StaticBody2D" parent="." unique_id=545747087]
 collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wall top 3" unique_id=1907401263]
 position = Vector2(642, -26)
 shape = SubResource("RectangleShape2D_ea0i7")
+
+[node name="ColorRect" type="ColorRect" parent="wall top 3" unique_id=2024132284]
+offset_left = -209.0
+offset_top = 645.0
+offset_right = 1321.0
+offset_bottom = 815.0
+color = Color(0.68215144, 0.029433975, 0.40867049, 1)
 
 [node name="wall bottom 4" type="StaticBody2D" parent="." unique_id=241575498]
 collision_layer = 3
@@ -135,11 +170,19 @@ collision_layer = 3
 position = Vector2(617, 677)
 shape = SubResource("RectangleShape2D_ea0i7")
 
+[node name="ColorRect" type="ColorRect" parent="wall bottom 4" unique_id=323488455]
+offset_left = -142.0
+offset_top = -166.0
+offset_right = 1388.0
+offset_bottom = 4.0
+color = Color(0.68215144, 0.029433975, 0.40867049, 1)
+
 [node name="box" type="Area2D" parent="." unique_id=1809801398]
 position = Vector2(576, 324)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="box" unique_id=1663191560]
 shape = SubResource("RectangleShape2D_hjvny")
+debug_color = Color(1, 1, 1, 0.41960785)
 
 [node name="game_box" type="Panel" parent="." unique_id=834955837]
 offset_left = 164.0
@@ -179,29 +222,6 @@ offset = Vector2(575, 325)
 wait_time = 5.0
 autostart = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1200081811]
-position = Vector2(1094, 29.999996)
-scale = Vector2(3.8593745, 3.647764)
-sprite_frames = SubResource("SpriteFrames_ea0i7")
-autoplay = "default"
-frame_progress = 0.9020381
-
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=2043365819]
-position = Vector2(881, 30)
-scale = Vector2(3.8593745, 3.647764)
-sprite_frames = SubResource("SpriteFrames_ea0i7")
-autoplay = "default"
-frame_progress = 0.1526926
-script = ExtResource("7_rj586")
-
-[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="." unique_id=403295129]
-position = Vector2(987.00006, 29.999996)
-scale = Vector2(3.8593745, 3.647764)
-sprite_frames = SubResource("SpriteFrames_ea0i7")
-autoplay = "default"
-frame_progress = 0.1526926
-script = ExtResource("8_4d7sh")
-
 [node name="shoot" type="AudioStreamPlayer2D" parent="." unique_id=243351656]
 stream = ExtResource("7_d21ai")
 volume_db = 7.0
@@ -215,8 +235,7 @@ collision_mask = 5
 script = ExtResource("9_ir8iy")
 
 [node name="Sprite2D" type="Sprite2D" parent="hole" unique_id=1457435609]
-scale = Vector2(3.9865928, 3.9865928)
-texture = ExtResource("9_4d7sh")
+texture = ExtResource("9_x0ka3")
 offset = Vector2(16, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hole" unique_id=1465169218]
@@ -238,7 +257,7 @@ wait_time = 5.0
 [node name="score_label" type="Label" parent="UI" unique_id=1182636380]
 offset_right = 194.0
 offset_bottom = 70.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.16326162, 0.5089408, 0.6777786, 1)
 theme_override_fonts/font = ExtResource("11_hqns4")
 theme_override_font_sizes/font_size = 50
 text = "Score: 0"
@@ -253,6 +272,93 @@ position = Vector2(988, 501)
 
 [node name="goal" type="AudioStreamPlayer2D" parent="." unique_id=155333400]
 stream = ExtResource("12_x0ka3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1803539669]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1009601646]
+offset_left = -209.0
+offset_top = -61.0
+offset_right = 1412.0
+offset_bottom = 803.0
+color = Color(0.09411765, 0.1764706, 0.5019608, 1)
+
+[node name="Heart1" type="RigidBody2D" parent="." unique_id=850098248]
+collision_layer = 8
+collision_mask = 8
+gravity_scale = 0.2
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Heart1" unique_id=2043365819]
+position = Vector2(881, 30)
+scale = Vector2(3.8593745, 3.647764)
+sprite_frames = SubResource("SpriteFrames_ea0i7")
+autoplay = "default"
+frame_progress = 0.1526926
+script = ExtResource("7_rj586")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Heart1" unique_id=1945874477]
+position = Vector2(880, 46)
+shape = SubResource("CircleShape2D_reolk")
+
+[node name="Heart2" type="RigidBody2D" parent="." unique_id=508432742]
+collision_layer = 8
+collision_mask = 8
+gravity_scale = 0.2
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="Heart2" unique_id=403295129]
+position = Vector2(987.00006, 29.999996)
+scale = Vector2(3.8593745, 3.647764)
+sprite_frames = SubResource("SpriteFrames_ea0i7")
+autoplay = "default"
+frame_progress = 0.1526926
+script = ExtResource("8_4d7sh")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Heart2" unique_id=497465066]
+position = Vector2(989, 43)
+shape = SubResource("CircleShape2D_reolk")
+
+[node name="Heart3" type="RigidBody2D" parent="." unique_id=460979350]
+collision_layer = 8
+collision_mask = 8
+gravity_scale = 0.2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Heart3" unique_id=1200081811]
+position = Vector2(1094, 29.999996)
+scale = Vector2(3.8593745, 3.647764)
+sprite_frames = SubResource("SpriteFrames_ea0i7")
+autoplay = "default"
+frame_progress = 0.9020381
+script = ExtResource("13_0h7mo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Heart3" unique_id=2131257560]
+position = Vector2(1093, 48)
+shape = SubResource("CircleShape2D_ea0i7")
+
+[node name="HeartStops" type="Node" parent="." unique_id=470063421]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="HeartStops" unique_id=642192489]
+collision_layer = 8
+collision_mask = 8
+
+[node name="HeartStop" type="CollisionShape2D" parent="HeartStops/StaticBody2D" unique_id=1922860322]
+position = Vector2(886.5, 114)
+shape = SubResource("RectangleShape2D_ri6b3")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="HeartStops" unique_id=1650905701]
+collision_layer = 8
+collision_mask = 8
+
+[node name="2ndHeartStop" type="CollisionShape2D" parent="HeartStops/StaticBody2D2" unique_id=1448176584]
+position = Vector2(987.5, 109.5)
+shape = SubResource("RectangleShape2D_x0ka3")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="HeartStops" unique_id=1920775471]
+collision_layer = 8
+collision_mask = 8
+
+[node name="3rdHeartStop" type="CollisionShape2D" parent="HeartStops/StaticBody2D3" unique_id=747286271]
+position = Vector2(1089.5, 121)
+shape = SubResource("RectangleShape2D_0h7mo")
 
 [connection signal="body_entered" from="Player/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

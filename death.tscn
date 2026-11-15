@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://c76tr430qoua2"]
+
+[ext_resource type="Script" uid="uid://dayrirhru0ptn" path="res://death.gd" id="1_lf77f"]
+[ext_resource type="FontFile" uid="uid://lqvkce7picac" path="res://BOUNCY GUM.ttf" id="1_qemge"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_reolk"]
+bg_color = Color(0.20332181, 0.20332184, 0.2033217, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="death" type="Node2D" unique_id=659920827]
+script = ExtResource("1_lf77f")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1448013667]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=554764522]
+offset_left = -29.0
+offset_top = -31.0
+offset_right = 1163.0
+offset_bottom = 665.0
+color = Color(0.48415297, 0, 0.010599017, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" unique_id=1750647025]
+offset_left = 370.0
+offset_top = 227.0
+offset_right = 1040.0
+offset_bottom = 517.0
+theme_override_fonts/normal_font = ExtResource("1_qemge")
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "GAME OVER"
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=155100411]
+z_index = 3
+offset_left = 379.0
+offset_top = 330.0
+offset_right = 768.0
+offset_bottom = 440.0
+theme_override_colors/font_color = Color(0.88, 0.070399985, 0.070399985, 1)
+theme_override_fonts/font = ExtResource("1_qemge")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_reolk")
+text = "Try Again?
+"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
