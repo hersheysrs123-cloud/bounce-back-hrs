@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bswfbiwvtbrd4"]
 
 [ext_resource type="Script" uid="uid://d3k4ikaxskbme" path="res://color_rect.gd" id="1_fyqef"]
+[ext_resource type="Script" uid="uid://bneb0lrsj3ntj" path="res://ui.gd" id="1_m6e0p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_reolk"]
 bg_color = Color(0.84670067, 0.5052446, 0.18557999, 1)
@@ -10,6 +11,8 @@ corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ea0i7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27fn8"]
 
 [sub_resource type="Image" id="Image_fyqef"]
 data = {
@@ -149,6 +152,7 @@ cache/0/45/0/glyphs/48/uv_rect = Rect2(140, 1, 26, 35)
 cache/0/45/0/glyphs/48/texture_idx = 0
 
 [node name="Node2D" type="Node2D" unique_id=791707817]
+script = ExtResource("1_m6e0p")
 
 [node name="Button" type="Button" parent="." unique_id=2137086195]
 offset_left = 432.0
@@ -159,6 +163,7 @@ theme_override_colors/font_color = Color(0.29030928, 0.45354342, 0.7920711, 1)
 theme_override_font_sizes/font_size = 52
 theme_override_styles/normal = SubResource("StyleBoxFlat_reolk")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_ea0i7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_27fn8")
 text = "START"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2128919531]
@@ -199,3 +204,5 @@ theme_override_fonts/font = SubResource("FontFile_27fn8")
 theme_override_font_sizes/font_size = 45
 text = "B  UNCEYBALL"
 metadata/_edit_group_ = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
