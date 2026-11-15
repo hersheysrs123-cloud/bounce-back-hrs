@@ -7,6 +7,10 @@
 [ext_resource type="AudioStream" uid="uid://bvml2cubwrh88" path="res://slime shooting.wav" id="7_d21ai"]
 [ext_resource type="Script" uid="uid://d0ehm5mpmn2c" path="res://animated_sprite_2d_2.gd" id="7_rj586"]
 [ext_resource type="Script" uid="uid://bfxfe4i7dakw7" path="res://animated_sprite_2d_3.gd" id="8_4d7sh"]
+[ext_resource type="AudioStream" uid="uid://cv3wct7pooss1" path="res://hit-sfx.wav" id="8_rj586"]
+[ext_resource type="Texture2D" uid="uid://cfmu6nhul8rgb" path="res://hole.png" id="9_4d7sh"]
+[ext_resource type="Script" uid="uid://cvbwnuyuafm8p" path="res://hole.gd" id="9_ir8iy"]
+[ext_resource type="FontFile" uid="uid://lqvkce7picac" path="res://BOUNCY GUM.ttf" id="11_hqns4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_reolk"]
 size = Vector2(66, 783.5)
@@ -79,36 +83,39 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hjvny"]
+radius = 13.038404
+
 [node name="Node2D" type="Node2D" unique_id=977329759]
 script = ExtResource("1_epypp")
 
-[node name="wall right" type="StaticBody2D" parent="." unique_id=883023932]
+[node name="wall right 1" type="StaticBody2D" parent="." unique_id=883023932]
 collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall right" unique_id=1287742022]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall right 1" unique_id=1287742022]
 position = Vector2(-32, 283)
 shape = SubResource("RectangleShape2D_reolk")
 
-[node name="Sprite2D" type="Sprite2D" parent="wall right" unique_id=1837137202]
+[node name="Sprite2D" type="Sprite2D" parent="wall right 1" unique_id=1837137202]
 
-[node name="wall left" type="StaticBody2D" parent="." unique_id=597976511]
+[node name="wall left 2" type="StaticBody2D" parent="." unique_id=597976511]
 collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall left" unique_id=1360971901]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall left 2" unique_id=1360971901]
 position = Vector2(1185, 302)
 shape = SubResource("RectangleShape2D_reolk")
 
-[node name="wall top" type="StaticBody2D" parent="." unique_id=545747087]
+[node name="wall top 3" type="StaticBody2D" parent="." unique_id=545747087]
 collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall top" unique_id=1907401263]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall top 3" unique_id=1907401263]
 position = Vector2(642, -26)
 shape = SubResource("RectangleShape2D_ea0i7")
 
-[node name="wall bottom" type="StaticBody2D" parent="." unique_id=241575498]
+[node name="wall bottom 4" type="StaticBody2D" parent="." unique_id=241575498]
 collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall bottom" unique_id=852475210]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall bottom 4" unique_id=852475210]
 position = Vector2(617, 677)
 shape = SubResource("RectangleShape2D_ea0i7")
 
@@ -170,5 +177,45 @@ stream = ExtResource("7_d21ai")
 volume_db = 7.0
 pitch_scale = 0.8
 
+[node name="hit" type="AudioStreamPlayer2D" parent="." unique_id=299247517]
+stream = ExtResource("8_rj586")
+
+[node name="hole" type="Area2D" parent="." unique_id=1254699014]
+position = Vector2(583, 617)
+rotation = -1.5707964
+scale = Vector2(2, 2)
+collision_mask = 5
+script = ExtResource("9_ir8iy")
+
+[node name="Sprite2D" type="Sprite2D" parent="hole" unique_id=1457435609]
+texture = ExtResource("9_4d7sh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hole" unique_id=1465169218]
+position = Vector2(-22, 0)
+shape = SubResource("CircleShape2D_hjvny")
+
+[node name="RandDirChange" type="Timer" parent="hole" unique_id=1417115457]
+wait_time = 3.0
+autostart = true
+
+[node name="BallDespawn" type="Timer" parent="." unique_id=1291840772]
+wait_time = 5.0
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=559474463]
+
+[node name="score_label" type="Label" parent="UI" unique_id=1182636380]
+offset_right = 194.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("11_hqns4")
+theme_override_font_sizes/font_size = 50
+text = "Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="body_entered" from="Player/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="hole" to="." method="_on_hole_body_entered"]
+[connection signal="body_entered" from="hole" to="hole" method="_on_body_entered"]
+[connection signal="timeout" from="hole/RandDirChange" to="." method="_on_rand_dir_change_timeout"]
+[connection signal="timeout" from="BallDespawn" to="." method="_on_ball_despawn_timeout"]

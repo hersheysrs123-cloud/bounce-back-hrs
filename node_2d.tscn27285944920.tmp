@@ -1,0 +1,197 @@
+[gd_scene format=3 uid="uid://bao47grv60ndo"]
+
+[ext_resource type="Script" uid="uid://m77l1pfk311s" path="res://node_2d.gd" id="1_epypp"]
+[ext_resource type="Script" uid="uid://rnpvi11fxwxg" path="res://player.gd" id="2_q6r6c"]
+[ext_resource type="Texture2D" uid="uid://b0qgvvufv165i" path="res://playyer.png" id="3_epypp"]
+[ext_resource type="Texture2D" uid="uid://pl3iux4u6lmi" path="res://unnamed-2.png" id="6_kdubu"]
+[ext_resource type="AudioStream" uid="uid://bvml2cubwrh88" path="res://slime shooting.wav" id="7_d21ai"]
+[ext_resource type="Script" uid="uid://d0ehm5mpmn2c" path="res://animated_sprite_2d_2.gd" id="7_rj586"]
+[ext_resource type="Script" uid="uid://bfxfe4i7dakw7" path="res://animated_sprite_2d_3.gd" id="8_4d7sh"]
+[ext_resource type="AudioStream" uid="uid://cv3wct7pooss1" path="res://hit-sfx.wav" id="8_rj586"]
+[ext_resource type="Texture2D" uid="uid://cfmu6nhul8rgb" path="res://hole.png" id="9_4d7sh"]
+[ext_resource type="Script" uid="uid://cvbwnuyuafm8p" path="res://hole.gd" id="9_ir8iy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_reolk"]
+size = Vector2(66, 783.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ea0i7"]
+size = Vector2(1282, 53)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hol4"]
+atlas = ExtResource("3_epypp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6r6c"]
+atlas = ExtResource("3_epypp")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_reolk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hol4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6r6c")
+}],
+"loop": 0,
+"name": &"move",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ea0i7"]
+radius = 38.0
+height = 92.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3ioc"]
+size = Vector2(57, 101)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d21ai"]
+atlas = ExtResource("6_kdubu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rj586"]
+atlas = ExtResource("6_kdubu")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4d7sh"]
+atlas = ExtResource("6_kdubu")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir8iy"]
+atlas = ExtResource("6_kdubu")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ea0i7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d21ai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rj586")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4d7sh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir8iy")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hjvny"]
+radius = 13.038404
+
+[node name="Node2D" type="Node2D" unique_id=977329759]
+script = ExtResource("1_epypp")
+
+[node name="wall right" type="StaticBody2D" parent="." unique_id=883023932]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall right" unique_id=1287742022]
+position = Vector2(-32, 283)
+shape = SubResource("RectangleShape2D_reolk")
+
+[node name="Sprite2D" type="Sprite2D" parent="wall right" unique_id=1837137202]
+
+[node name="wall left" type="StaticBody2D" parent="." unique_id=597976511]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall left" unique_id=1360971901]
+position = Vector2(1185, 302)
+shape = SubResource("RectangleShape2D_reolk")
+
+[node name="wall top" type="StaticBody2D" parent="." unique_id=545747087]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall top" unique_id=1907401263]
+position = Vector2(642, -26)
+shape = SubResource("RectangleShape2D_ea0i7")
+
+[node name="wall bottom" type="StaticBody2D" parent="." unique_id=241575498]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall bottom" unique_id=852475210]
+position = Vector2(617, 677)
+shape = SubResource("RectangleShape2D_ea0i7")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1371173273]
+position = Vector2(391, 534)
+script = ExtResource("2_q6r6c")
+
+[node name="animation" type="AnimatedSprite2D" parent="Player" unique_id=1455884781]
+position = Vector2(17, -39)
+scale = Vector2(5.9687505, 5.44625)
+sprite_frames = SubResource("SpriteFrames_reolk")
+animation = &"move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=955301765]
+shape = SubResource("CapsuleShape2D_ea0i7")
+
+[node name="Area2D" type="Area2D" parent="Player" unique_id=201226195]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D" unique_id=928477438]
+shape = SubResource("RectangleShape2D_o3ioc")
+
+[node name="background" type="Sprite2D" parent="." unique_id=1593180464]
+scale = Vector2(0.6, 1)
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=576432686]
+offset = Vector2(575, 325)
+
+[node name="Timer" type="Timer" parent="." unique_id=1050701349]
+wait_time = 5.0
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1200081811]
+position = Vector2(1094, 29.999996)
+scale = Vector2(3.8593745, 3.647764)
+sprite_frames = SubResource("SpriteFrames_ea0i7")
+autoplay = "default"
+frame_progress = 0.9020381
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=2043365819]
+position = Vector2(881, 30)
+scale = Vector2(3.8593745, 3.647764)
+sprite_frames = SubResource("SpriteFrames_ea0i7")
+autoplay = "default"
+frame_progress = 0.1526926
+script = ExtResource("7_rj586")
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="." unique_id=403295129]
+position = Vector2(987.00006, 29.999996)
+scale = Vector2(3.8593745, 3.647764)
+sprite_frames = SubResource("SpriteFrames_ea0i7")
+autoplay = "default"
+frame_progress = 0.1526926
+script = ExtResource("8_4d7sh")
+
+[node name="shoot" type="AudioStreamPlayer2D" parent="." unique_id=243351656]
+stream = ExtResource("7_d21ai")
+volume_db = 7.0
+pitch_scale = 0.8
+
+[node name="hit" type="AudioStreamPlayer2D" parent="." unique_id=299247517]
+stream = ExtResource("8_rj586")
+
+[node name="hole" type="Area2D" parent="." unique_id=1254699014]
+position = Vector2(35, 146)
+scale = Vector2(2, 2)
+collision_mask = 5
+script = ExtResource("9_ir8iy")
+
+[node name="Sprite2D" type="Sprite2D" parent="hole" unique_id=1457435609]
+texture = ExtResource("9_4d7sh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hole" unique_id=1465169218]
+position = Vector2(-22, 0)
+shape = SubResource("CircleShape2D_hjvny")
+
+[connection signal="body_entered" from="Player/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="hole" to="." method="_on_hole_body_entered"]

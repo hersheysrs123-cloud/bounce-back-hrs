@@ -26,3 +26,7 @@ func _on_body_entered(body: Node) -> void:
 	if body is StaticBody2D:
 		$bounce.play()
 		
+
+
+func _on_despawn_timeout() -> void:
+	queue_free()

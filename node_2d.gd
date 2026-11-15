@@ -1,6 +1,8 @@
 extends Node2D
 const BALL = preload("res://ball.tscn")
 
+@onready var hole: Area2D = $hole
+@onready var score: Label = $UI/score_label
 @onready var hide1: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hide2: AnimatedSprite2D = $AnimatedSprite2D3
 var health = 3 
@@ -13,11 +15,13 @@ const BACKGROUNDS = {
 	"default" : preload("res://mesh-gradient (4).png")
 }
 
+var goals: int
 
 var ball_hit_side = ""
 @onready var background: Sprite2D = $background
 
 func _ready() -> void:
+	goals = 0
 	background.z_index = -1          
 	set_background("default")           
 
@@ -42,6 +46,7 @@ func reset():
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("balls"):
 		health -= 1
+		$hit.play()
 		body.queue_free()
 		reset()
 func _process(delta: float) -> void:
@@ -60,3 +65,16 @@ func _input(event):
 		new_ball.global_position = $Player.global_position + direction * 100
 		add_child(new_ball)
 		$shoot.play()
+
+
+func _on_hole_body_entered(body: Node2D) -> void:
+	if body.is_in_group("balls"):
+		goals += 1
+		score.text = "Score: " + str(goals)
+		hole.spawn_choose()
+		body.queue_free()
+		print(goals)
+
+
+func _on_rand_dir_change_timeout() -> void:
+	hole.switch_dir()
