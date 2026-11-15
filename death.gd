@@ -1,9 +1,7 @@
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# show the score from the run that just ended, under the Try Again button
 	var score_label := Label.new()
 	score_label.text = "Score: " + str(get_tree().get_meta("last_score", 0))
 	score_label.add_theme_font_override("font", load("res://BOUNCY GUM.ttf"))
@@ -14,7 +12,6 @@ func _ready() -> void:
 	$CanvasLayer.add_child(score_label)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 

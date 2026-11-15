@@ -32,7 +32,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body is StaticBody2D:
 		$bounce.play()
-		# nudge the bounce angle a little so it isn't perfectly predictable
 		bounce_turn = randf_range(-0.25, 0.25)
 		
 

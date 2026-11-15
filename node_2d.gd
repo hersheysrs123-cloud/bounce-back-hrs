@@ -7,7 +7,6 @@ const BALL = preload("res://ball.tscn")
 @onready var hide2: AnimatedSprite2D = $Heart2/AnimatedSprite2D3
 @onready var hide3: AnimatedSprite2D = $Heart1/AnimatedSprite2D2
 var health = 3 
-# index 0 = heart lost last (left), index 2 = heart lost first (right)
 @onready var hearts: Array = [$Heart1, $Heart2, $Heart3]
 @onready var heart_sprites: Array = [hide3, hide2, hide1]
 @onready var heart_stops: Array = [
@@ -16,29 +15,20 @@ var health = 3
 	get_node("HeartStops/StaticBody2D3/3rdHeartStop"),
 ]
 var heart_start: Array = []
-# each heart can be won back at most twice; shown by white dots on its top left
 var heart_lives: Array = [2, 2, 2]
 var heart_dots: Array = [[], [], []]
 
-const SHOOT_COOLDOWN = 0.4 # seconds between shots
+const SHOOT_COOLDOWN = 0.4
 var last_shot_ms: int = -100000
 
-const AUTO_SHOOT_TIME = 3.0 # seconds you have to shoot before it shoots for you
+const AUTO_SHOOT_TIME = 3.0
 var shoot_time_left: float = AUTO_SHOOT_TIME
 var timer_label: Label
 var list_of_bg = ["blue", "red", "green", "yellow"]
-#const BACKGROUNDS = {
-#	"blue" : preload("res://mesh-gradient (2).png"),
-#	"red" : preload("res://mesh-gradient (1).png"),
-#	"yellow" : preload("res://mesh-gradient (3).png"),
-#	"green" : preload("res://mesh-gradient.png"),
-#	"default" : preload("res://mesh-gradient (4).png")
-#}
 
 var goals: int
 
 var ball_hit_side = ""
-#@onready var background: Sprite2D = $background
 
 func _ready() -> void:
 	goals = 0
@@ -52,19 +42,45 @@ func _ready() -> void:
 			dot.position = heart_sprites[i].position + Vector2(-45 + d * 12, -42)
 			hearts[i].add_child(dot)
 			heart_dots[i].append(dot)
-	# countdown label under the score, same style as the score
 	timer_label = score.duplicate()
 	timer_label.position = Vector2(0, 70)
+	timer_label.text = "%.1f" % AUTO_SHOOT_TIME
 	$UI.add_child(timer_label)
-#	background.z_index = -1          
+	if not get_tree().has_meta("tutorial_shown"):
+		get_tree().set_meta("tutorial_shown", true)
+		show_tutorial()
+
+
+func show_tutorial() -> void:
+	var tutorial := Label.new()
+	tutorial.text = "HOW TO PLAY\n\nMove: WASD / arrow keys\nShoot: click (aims at your mouse)\nBounce balls into the moving goal to score\nDon't let your own balls hit you!\nHit a falling heart to get it back (2 dots = 2 saves)\nShoot before the timer runs out or it shoots for you"
+	tutorial.add_theme_font_override("font", load("res://BOUNCY GUM.ttf"))
+	tutorial.add_theme_font_size_override("font_size", 26)
+	tutorial.add_theme_color_override("font_color", Color.WHITE)
+	var bg := StyleBoxFlat.new()
+	bg.bg_color = Color(0, 0, 0, 0.75)
+	bg.set_corner_radius_all(20)
+	bg.set_content_margin_all(20)
+	tutorial.add_theme_stylebox_override("normal", bg)
+	tutorial.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	tutorial.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	tutorial.position = Vector2(176, 134)
+	tutorial.size = Vector2(800, 380)
+	tutorial.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$UI.add_child(tutorial)
+	get_tree().paused = true
+	var tween := create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_interval(4.5)
+	tween.tween_property(tutorial, "modulate:a", 0.0, 0.5)
+	tween.tween_callback(tutorial.queue_free)
+	tween.tween_callback(func(): get_tree().paused = false)
 	set_background("default")           
 
 
 func set_background(bg_name: String) -> void:
-#	if not BACKGROUNDS.has(bg_name):
 		push_warning("Unknown background: " + bg_name)
 		return
-#	background.texture = BACKGROUNDS[bg_name]
 	
 	
 
@@ -85,7 +101,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		reset()
 func _process(delta: float) -> void:
 	health = max(health, 0)
-	# auto shoot if you wait too long
 	shoot_time_left -= delta
 	if shoot_time_left <= 0:
 		shoot()
@@ -94,14 +109,12 @@ func _process(delta: float) -> void:
 		timer_label.add_theme_color_override("font_color", Color(0.85, 0.1, 0.1))
 	else:
 		timer_label.add_theme_color_override("font_color", score.get_theme_color("font_color"))
-	# a heart drops (and can be won back) depending on how much health you have
 	for i in hearts.size():
 		if health <= i:
 			drop_heart(i)
 		else:
 			restore_heart(i)
 
-	# hit the most recently lost heart with a ball while it's falling to get it back
 	if health < 3:
 		var heart_sprite: AnimatedSprite2D = heart_sprites[health]
 		if heart_sprite.global_position.y < 720 and heart_lives[health] > 0:
@@ -114,9 +127,8 @@ func _process(delta: float) -> void:
 					break
 
 	if health <= 0:
-		# only game over once the last heart has fallen off the bottom of the screen
 		if hide3.global_position.y > 720:
-			get_tree().set_meta("last_score", goals) # so the game over screen can show it
+			get_tree().set_meta("last_score", goals)
 			get_tree().change_scene_to_file("res://death.tscn")
 		
 		
@@ -161,7 +173,7 @@ func _on_hole_body_entered(body: Node2D) -> void:
 		score.text = "Score: " + str(goals)
 		$goal.play()
 		hole.spawn_choose()
-		hole.inc_difficulty(goals <= 13) # goal stops shrinking after score 13
+		hole.inc_difficulty(goals <= 13)
 		body.queue_free()
 		print(goals)
 
