@@ -13,9 +13,9 @@ func _process(delta):
 		if (global_position.x > 1120.0 and direction.x > 0) or (global_position.x < 34.0 and direction.x < 0):
 			switch_dir()
 			
-func inc_difficulty():
+func inc_difficulty(shrink: bool = true):
 	speed += 10
-	if scale.x > 0.3:
+	if shrink and scale.x > 0.3:
 		scale -= Vector2(0.1, 0.1)
 	
 func spawn_choose():
