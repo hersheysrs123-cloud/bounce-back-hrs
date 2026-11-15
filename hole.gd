@@ -12,23 +12,28 @@ func _process(delta):
 	else:
 		if (global_position.x > 1120.0 and direction.x > 0) or (global_position.x < 34.0 and direction.x < 0):
 			switch_dir()
+			
+func inc_difficulty():
+	speed += 10
+	if scale.x > 0.3:
+		scale -= Vector2(0.1, 0.1)
 	
 func spawn_choose():
 	wall = randi_range(1, 4)
 	if wall == 1:
-		global_position = Vector2(34.0, 283.0)
+		global_position = Vector2(0.0, 283.0)
 		rotation = 0
 		direction = Vector2(0, 1) if randi() % 2 == 0 else Vector2(0, -1)
 	elif wall == 2:
-		global_position = Vector2(1120.0, 316.0)
+		global_position = Vector2(1152.0, 316.0)
 		rotation = PI
 		direction = Vector2(0, -1) if randi() % 2 == 0 else Vector2(0, 1)
 	elif wall == 3:
-		global_position = Vector2(592.0, 33.0)
+		global_position = Vector2(592.0, 0.0)
 		rotation = PI / 2
 		direction = Vector2(1, 0) if randi() % 2 == 0 else Vector2(-1, 0)
 	else:
-		global_position = Vector2(583.0, 617.0)
+		global_position = Vector2(583.0, 648.0)
 		rotation = -1 * PI / 2
 		direction = Vector2(-1, 0) if randi() % 2 == 0 else Vector2(1, 0)
 		

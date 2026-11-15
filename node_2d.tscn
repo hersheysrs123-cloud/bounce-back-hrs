@@ -11,12 +11,28 @@
 [ext_resource type="Texture2D" uid="uid://cfmu6nhul8rgb" path="res://hole.png" id="9_4d7sh"]
 [ext_resource type="Script" uid="uid://cvbwnuyuafm8p" path="res://hole.gd" id="9_ir8iy"]
 [ext_resource type="FontFile" uid="uid://lqvkce7picac" path="res://BOUNCY GUM.ttf" id="11_hqns4"]
+[ext_resource type="AudioStream" uid="uid://cydgtctarlvr1" path="res://goal_final.wav" id="12_x0ka3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_reolk"]
 size = Vector2(66, 783.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ea0i7"]
 size = Vector2(1282, 53)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hjvny"]
+size = Vector2(823.99976, 353.99966)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pkhr"]
+bg_color = Color(0.4311368, 0.6145804, 0.82415205, 0.3137255)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0hol4"]
 atlas = ExtResource("3_epypp")
@@ -84,7 +100,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hjvny"]
-radius = 13.038404
+radius = 32.0
 
 [node name="Node2D" type="Node2D" unique_id=977329759]
 script = ExtResource("1_epypp")
@@ -119,8 +135,22 @@ collision_layer = 3
 position = Vector2(617, 677)
 shape = SubResource("RectangleShape2D_ea0i7")
 
+[node name="box" type="Area2D" parent="." unique_id=1809801398]
+position = Vector2(576, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box" unique_id=1663191560]
+shape = SubResource("RectangleShape2D_hjvny")
+
+[node name="game_box" type="Panel" parent="." unique_id=834955837]
+offset_left = 164.0
+offset_top = 147.0
+offset_right = 988.0
+offset_bottom = 501.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8pkhr")
+
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1371173273]
-position = Vector2(391, 534)
+position = Vector2(576, 324)
 script = ExtResource("2_q6r6c")
 
 [node name="animation" type="AnimatedSprite2D" parent="Player" unique_id=1455884781]
@@ -177,26 +207,28 @@ stream = ExtResource("7_d21ai")
 volume_db = 7.0
 pitch_scale = 0.8
 
-[node name="hit" type="AudioStreamPlayer2D" parent="." unique_id=299247517]
-stream = ExtResource("8_rj586")
-
 [node name="hole" type="Area2D" parent="." unique_id=1254699014]
-position = Vector2(583, 617)
+position = Vector2(614, 649)
 rotation = -1.5707964
 scale = Vector2(2, 2)
 collision_mask = 5
 script = ExtResource("9_ir8iy")
 
 [node name="Sprite2D" type="Sprite2D" parent="hole" unique_id=1457435609]
+scale = Vector2(3.9865928, 3.9865928)
 texture = ExtResource("9_4d7sh")
+offset = Vector2(16, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hole" unique_id=1465169218]
-position = Vector2(-22, 0)
 shape = SubResource("CircleShape2D_hjvny")
 
 [node name="RandDirChange" type="Timer" parent="hole" unique_id=1417115457]
 wait_time = 3.0
 autostart = true
+
+[node name="hit" type="AudioStreamPlayer2D" parent="." unique_id=299247517]
+position = Vector2(-17, 124)
+stream = ExtResource("8_rj586")
 
 [node name="BallDespawn" type="Timer" parent="." unique_id=1291840772]
 wait_time = 5.0
@@ -212,6 +244,15 @@ theme_override_font_sizes/font_size = 50
 text = "Score: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=955309110]
+position = Vector2(164, 147)
+
+[node name="Marker2D2" type="Marker2D" parent="." unique_id=761461029]
+position = Vector2(988, 501)
+
+[node name="goal" type="AudioStreamPlayer2D" parent="." unique_id=155333400]
+stream = ExtResource("12_x0ka3")
 
 [connection signal="body_entered" from="Player/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
